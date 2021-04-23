@@ -1,0 +1,195 @@
+{
+    "name": "awsvpc",
+    "resources": {
+        "awsvpc:index:Vpc": {
+            "isComponent": true,
+            "inputProperties": {
+                "availabilityZones": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of AZs to use for the subnets in the VPC. Note: the logical order is preserved."
+                },
+                "numberOfAvailabilityZones": {
+                    "type": "integer",
+                    "description": "Number of AZs to use in the VPC. If both are specified, this must match your selections in the list of AZs parameter."
+                },
+                "createPrivateSubnets": {
+                    "type": "boolean",
+                    "description": "Set to false to create only public subnets. If false, the CIDR parameters for ALL private subnets will be ignored."
+                },
+                "createProtectedSubnets": {
+                    "type": "boolean",
+                    "description": "Set to true to create a network ACL protected subnet in each AZ. If false, the CIDR parameters for those subnets will be ignored. If true, it also requires that the `createPrivateSubnets` parameter is also true."
+                },
+                "cidrBlock": {
+                    "type": "string",
+                    "description": "CIDR block for the VPC."
+                },
+                "tenancy": {
+                    "type": "string",
+                    "description": "The allowed tenancy of instances launched into the VPC."
+                },
+                "publicSubnetCidrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CIDR blocks for public subnets."
+                },
+                "publicSubnetTags": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "description": "Tags to add to public subnets (an array of maps, one per AZ)."
+                },
+                "privateSubnetCidrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CIDR blocks for private subnets."
+                },
+                "privateSubnetTags": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "description": "Tags to add to private subnets (an array of maps, one per AZ)."
+                },
+                "protectedSubnetCidrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CIDR blocks for protected subnets."
+                },
+                "protectedSubnetTags": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "description": "Tags to add to protected subnets (an array of maps, one per AZ)."
+                }
+            },
+            "requiredInputs": [
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the underlying AWS VPC."
+                },
+                "cidrBlock": {
+                    "type": "string",
+                    "description": "CIDR block for the VPC."
+                },
+                "natEips": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Auto-assigned elastic IP addresses (EIPs) for the NAT gateway(s)."
+                },
+                "publicSubnetIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IDs for public subnets."
+                },
+                "publicSubnetCidrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CIDR blocks for public subnets."
+                },
+                "publicSubnetRouteTableId": {
+                    "type": "string",
+                    "description": "Route table ID for public subnets."
+                },
+                "privateSubnetIds": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "IDs for private subnets."
+                },
+                "privateSubnetCidrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CIDR blocks for private subnets."
+                },
+                "protectedSubnetIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IDs for protected subnets."
+                },
+                "protectedSubnetCidrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CIDR blocks for protected subnets."
+                },
+                "privateSubnetRouteTableIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Route table IDs for private subnets."
+                },
+                "s3VpcEndpointId": {
+                    "type": "string",
+                    "description": "If private subnets were created, an S3 VPC Endpoint to simplify S3 access."
+                }
+            },
+            "required": [
+                "id",
+                "cidrBlock",
+                "publicSubnetIds",
+                "publicSubnetCidrs",
+                "publicSubnetRouteTableId"
+            ]
+        }
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*",
+                "Pulumi.Aws": "4.*"
+            }
+        },
+        "go": {
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz"
+        },
+        "nodejs": {
+            "dependencies": {
+                "@pulumi/aws": "^4.0.0"
+            },
+            "devDependencies": {
+                "typescript": "^3.7.0"
+            }
+        },
+        "python": {
+            "requires": {
+                "pulumi": ">=3.0.0,<4.0.0",
+                "pulumi-aws": ">=4.0.0,<5.0.0"
+            }
+        }
+    }
+}
