@@ -15,20 +15,27 @@ any .NET language (C#, F#, etc).
 
 To use this package, first install it in your language of choice [instructions instructions in all languages TBD].
 
-Next, you can create a Pulumi project, and then instantiate the VPC [instructions in all languages TBD]:
+To create a VPC using this package, first create a Pulumi project and install the package in your language
+of choice [instructions in all languages TBD]. In your program, instantiate the VPC [examples in all languages TBD]:
 
 ```typescript
 import { Vpc } from "@pulumi/awsvpc";
 export const vpc = new Vpc("my-vpc");
 ```
 
-Afterward, you can deploy your infrastructure by running:
+To deploy the VPC, first configure the AWS region you will deploy into:
+
+```bash
+$ pulumi config set aws:region us-west-2
+```
+
+And then run:
 
 ```bash
 $ pulumi up
 ```
 
-After the update finishes, computed IP addresses and IDs will be printed. Here is sample output:
+After the update finishes, many attributes about your new VPC will be output. Here is sample:
 
 ```
 Updating (dev):
@@ -151,10 +158,10 @@ This new environment uses the following AWS features:
 
 ## Configurable Properties
 
-To change a configuration variables after project creation, or to configure a new stack, run
-`pulumi config set <key> <value>`. The available configuration variables for this program include:
 
-* `aws:region`: the AWS region to deploy into (defaults to `us-east-1`).
+The VPC component uses sane defaults, however, there are a number of properties you can set by passing them
+to your VPC's constructor. This includes:
+
 * `availabilityZones`: an array of AZs to deploy into (defaults to all of the current region's).
 * `numberOfAvailabilityZones`: the number of AZs to deploy into (defaults to all of them).
 * `createPrivateSubnets`: set to `false` if you want to create only public subnets (defaults to `true`).
